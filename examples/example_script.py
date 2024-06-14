@@ -6,7 +6,8 @@ import translation_agent as ta
 if __name__ == "__main__":
     source_lang, target_lang, country = "English", "Chinese Simplfied", "China"
 
-    relative_path = "sample-texts/sample-short1.txt"
+    # relative_path = "sample-texts/sample-short1.txt"
+    relative_path = "sample-texts/neuroscience.txt"
     script_dir = os.path.dirname(os.path.abspath(__file__))
 
     full_path = os.path.join(script_dir, relative_path)
