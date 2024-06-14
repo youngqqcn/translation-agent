@@ -10,7 +10,9 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 
 load_dotenv()  # read local .env file
-client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+client = openai.OpenAI(
+    api_key=os.getenv("OPENAI_API_KEY"), base_url="https://api.deepseek.com"
+)
 
 MAX_TOKENS_PER_CHUNK = (
     1000  # if text is more than this many tokens, we'll break it up into
@@ -21,7 +23,7 @@ MAX_TOKENS_PER_CHUNK = (
 def get_completion(
     prompt: str,
     system_message: str = "You are a helpful assistant.",
-    model: str = "gpt-4-turbo",
+    model: str = "deepseek-chat",
     temperature: float = 0.3,
     json_mode: bool = False,
 ) -> Union[str, dict]:
@@ -255,9 +257,7 @@ def one_chunk_translate_text(
     Returns:
         str: The improved translation of the source text.
     """
-    translation_1 = one_chunk_initial_translation(
-        source_lang, target_lang, source_text
-    )
+    translation_1 = one_chunk_initial_translation(source_lang, target_lang, source_text)
 
     reflection = one_chunk_reflect_on_translation(
         source_lang, target_lang, source_text, translation_1, country
@@ -269,9 +269,7 @@ def one_chunk_translate_text(
     return translation_2
 
 
-def num_tokens_in_string(
-    input_str: str, encoding_name: str = "cl100k_base"
-) -> int:
+def num_tokens_in_string(input_str: str, encoding_name: str = "cl100k_base") -> int:
     """
     Calculate the number of tokens in a given string using a specified encoding.
 
@@ -673,7 +671,7 @@ def translate(
         ic(token_size)
 
         text_splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
-            model_name="gpt-4",
+            model_name="deepseek-chat",
             chunk_size=token_size,
             chunk_overlap=0,
         )

@@ -4,7 +4,7 @@ import translation_agent as ta
 
 
 if __name__ == "__main__":
-    source_lang, target_lang, country = "English", "Spanish", "Mexico"
+    source_lang, target_lang, country = "English", "Chinese Simplfied", "China"
 
     relative_path = "sample-texts/sample-short1.txt"
     script_dir = os.path.dirname(os.path.abspath(__file__))
